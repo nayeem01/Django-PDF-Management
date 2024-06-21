@@ -4,6 +4,6 @@
 
 **Backend Features**:
 
-- [ ] (create delete update remove) document pdf API
+- [x] (create delete update remove) document pdf API
 - [ ] Login and Register API
 - [ ] Dockerize the whole Project
