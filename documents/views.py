@@ -1,10 +1,10 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated
 from django.http import Http404
 
-
+from .permissions import IsOwnerOrReadOnly
 from .models import Documents
 from .serializers import DocumetnSerializer
 
@@ -14,7 +14,7 @@ class DocumentListCreateView(APIView):
     List all Documents, or create a new Document.
     """
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         documents = Documents.objects.all()
@@ -28,21 +28,18 @@ class DocumentListCreateView(APIView):
     def post(self, request):
         serializer = DocumetnSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class DocumentUpdateView(APIView):
-    """
-    Retrieve, update or delete a snippet instance.
-    """
-
-    permission_classes = [permissions.IsAuthenticated]
+class SingleDocumentRetrieveView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get_object(self, pk):
         try:
-            return Documents.objects.get(pk=pk)
+            document = Documents.objects.get(pk=pk)
+            return document
         except Documents.DoesNotExist:  # pylint: disable=no-member
             # return Response(status=status.HTTP_404_NOT_FOUND)
             raise Http404
@@ -55,6 +52,23 @@ class DocumentUpdateView(APIView):
             return Response(serializer.data)
         else:
             return Response({"data": []}, status=status.HTTP_204_NO_CONTENT)
+
+
+class DocumentUpdateView(APIView):
+    """
+    Retrieve, update or delete a Document instance.
+    """
+
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+
+    def get_object(self, pk):
+        try:
+            document = Documents.objects.get(pk=pk)
+            self.check_object_permissions(self.request, document)
+            return document
+        except Documents.DoesNotExist:  # pylint: disable=no-member
+            # return Response(status=status.HTTP_404_NOT_FOUND)
+            raise Http404
 
     def put(self, request, pk, format=None):
         document = self.get_object(pk)
