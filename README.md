@@ -7,5 +7,6 @@
 - [x] (create delete update remove) document pdf API
 - [ ] Metadata Extraction from PDF Document
 - [ ] Search and Filter PDF Documents
-- [ ] Login and Register API
+- [x] Login and Register API
+- [ ] JWT Authorization
 - [ ] Dockerize the whole Project
