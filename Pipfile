@@ -9,6 +9,7 @@ djangorestframework = "*"
 psycopg2 = "*"
 django-environ = "*"
 djangorestframework-simplejwt = "*"
+pypdf2 = "*"
 
 [dev-packages]
 
