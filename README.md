@@ -5,5 +5,7 @@
 **Backend Features**:
 
 - [x] (create delete update remove) document pdf API
+- [ ] Metadata Extraction from PDF Document
+- [ ] Search and Filter PDF Documents
 - [ ] Login and Register API
 - [ ] Dockerize the whole Project
