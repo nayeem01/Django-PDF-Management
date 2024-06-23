@@ -8,5 +8,5 @@
 - [ ] Metadata Extraction from PDF Document
 - [ ] Search and Filter PDF Documents
 - [x] Login and Register API
-- [ ] JWT Authorization
+- [x] JWT Authorization
 - [ ] Dockerize the whole Project

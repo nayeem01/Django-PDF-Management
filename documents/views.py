@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework import permissions
 from django.http import Http404
 
 
@@ -12,6 +13,8 @@ class DocumentListCreateView(APIView):
     """
     List all Documents, or create a new Document.
     """
+
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         documents = Documents.objects.all()
@@ -34,6 +37,8 @@ class DocumentUpdateView(APIView):
     """
     Retrieve, update or delete a snippet instance.
     """
+
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):
         try:
