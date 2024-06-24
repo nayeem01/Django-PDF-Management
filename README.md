@@ -6,6 +6,7 @@
 
 - [x] (create read update delete) document pdf API
 - [x] Metadata Extraction from PDF Document
+- [x] Merge Multiple PDF Documents in Single PDF
 - [x] Search and Filter PDF Documents
 - [x] Login and Register API
 - [x] JWT Authentication

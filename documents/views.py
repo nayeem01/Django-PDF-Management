@@ -19,7 +19,7 @@ class DocumentListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     queryset = Documents.objects.all()
-    serializer_class = DocumentSerializer
+    # serializer_class = DocumentSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = DocumentFilter
 
