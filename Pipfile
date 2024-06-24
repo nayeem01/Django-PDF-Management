@@ -10,6 +10,7 @@ psycopg2 = "*"
 django-environ = "*"
 djangorestframework-simplejwt = "*"
 pypdf2 = "*"
+django-filter = "*"
 
 [dev-packages]
 

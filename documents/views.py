@@ -1,24 +1,32 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.permissions import IsAuthenticated
 from django.http import Http404
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .permissions import IsOwnerOrReadOnly
 from .models import Documents
-from .serializers import DocumetnSerializer
+from .serializers import DocumentSerializer
+from .filter import DocumentFilter
 
 
-class DocumentListCreateView(APIView):
+class DocumentListCreateView(generics.ListCreateAPIView):
     """
     List all Documents, or create a new Document.
     """
 
     permission_classes = [IsAuthenticated]
 
+    queryset = Documents.objects.all()
+    serializer_class = DocumentSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = DocumentFilter
+
     def get(self, request):
-        documents = Documents.objects.all()
-        serializer = DocumetnSerializer(documents, many=True)
+        documents = self.filter_queryset(self.get_queryset())
+
+        serializer = DocumentSerializer(documents, many=True)
 
         if serializer.data:
             return Response(serializer.data)
@@ -26,7 +34,7 @@ class DocumentListCreateView(APIView):
             return Response({"data": []}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request):
-        serializer = DocumetnSerializer(data=request.data)
+        serializer = DocumentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -46,7 +54,7 @@ class SingleDocumentRetrieveView(APIView):
 
     def get(self, request, pk, format=None):
         document = self.get_object(pk)
-        serializer = DocumetnSerializer(document)
+        serializer = DocumentSerializer(document)
 
         if serializer.data:
             return Response(serializer.data)
@@ -72,7 +80,7 @@ class DocumentUpdateView(APIView):
 
     def put(self, request, pk, format=None):
         document = self.get_object(pk)
-        serializer = DocumetnSerializer(document, data=request.data, partial=True)
+        serializer = DocumentSerializer(document, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()

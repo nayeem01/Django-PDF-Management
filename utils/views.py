@@ -8,7 +8,7 @@ from django.http import Http404
 
 from documents.permissions import IsOwnerOrReadOnly
 from documents.models import Documents
-from documents.serializers import DocumetnSerializer
+from documents.serializers import DocumentSerializer
 
 
 def extract_meta_data(file):
