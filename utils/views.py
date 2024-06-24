@@ -73,6 +73,13 @@ class MergePDFView(APIView):
             doc_ids = list(map(int, doc_ids.split(",")))
 
             docs = Documents.objects.filter(pk__in=doc_ids)
+
+            if not docs.exists():
+                return Response(
+                    {"error": "No documents found with the given IDs"},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+
             merged_pdf = merge_pdfs(docs)
 
             response = HttpResponse(merged_pdf, content_type="application/pdf")
