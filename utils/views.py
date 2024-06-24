@@ -3,8 +3,8 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from io import BytesIO
 import PyPDF2
+from io import BytesIO
 from django.http import Http404
 from django.http import HttpResponse
 
