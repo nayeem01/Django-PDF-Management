@@ -11,3 +11,5 @@
 - [x] Login and Register API
 - [x] JWT Authentication
 - [ ] Dockerize the whole Project
+
+### Postman Documentation - https://documenter.getpostman.com/view/32946115/2sA3XY5xF1
