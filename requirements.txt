@@ -1,0 +1,7 @@
+django
+djangorestframework
+psycopg2 
+djangorestframework-simplejwt
+pypdf2 
+django-filter
+python-dotenv 
