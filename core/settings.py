@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 
 from datetime import timedelta
@@ -87,16 +88,24 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DATABASE_NAME"),
-        "USER": os.getenv("DATABASE_USER"),
-        "PASSWORD": os.getenv("DATABASE_PASS"),
-        "HOST": os.getenv("DATABASE_HOST"),
-        "PORT": os.getenv("DATABASE_PORT"),
+DATABASES = {}
+
+if "DATABASE_URL" in os.environ:
+    DATABASES["default"] = dj_database_url.config(
+        conn_max_age=500,
+        conn_health_checks=True,
+    )
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("DATABASE_NAME", "postgres"),
+            "USER": os.getenv("DATABASE_USER", "postgres"),
+            "PASSWORD": os.getenv("DATABASE_PASS", "postgres"),
+            "HOST": os.getenv("DATABASE_HOST", "db"),
+            "PORT": os.getenv("DATABASE_PORT", "5432"),
+        }
     }
-}
 
 # simple JWT settings
 REST_FRAMEWORK = {

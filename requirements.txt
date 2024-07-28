@@ -5,3 +5,4 @@ djangorestframework-simplejwt
 pypdf2 
 django-filter
 python-dotenv 
+dj-database-url
