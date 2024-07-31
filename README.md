@@ -1,6 +1,6 @@
 # Django-PDF-Management
 
-**Tech stack**: Python, Django, Django rest framework, Postgresql, Docker
+**Tech stack**: Python, Django, Django Rest Framework, Postgresql, Docker
 
 **Backend Features**:
 
