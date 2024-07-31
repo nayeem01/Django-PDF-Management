@@ -2,3 +2,14 @@
 .vscode
 pipfile
 pipfile.lock
+
+
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+*.db
+*.sqlite3
+*.log
+.cmds
+.env

@@ -1,6 +1,6 @@
 django
 djangorestframework
-psycopg2 
+psycopg2-binary 
 djangorestframework-simplejwt
 pypdf2 
 django-filter

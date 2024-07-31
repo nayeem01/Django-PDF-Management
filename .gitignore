@@ -1,7 +1,7 @@
 # Personal Ignore
 .vscode
 pdfs
-
+.cmds
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
